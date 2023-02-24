@@ -96,3 +96,18 @@ function calculateDifference(property, limit) {
 // console.log(calculateDifference({ skate: 10, painting: 20 }, 19));
 // console.log(calculateDifference({ skate: 200, painting: 200, shoes: 1 }, 400));
 // console.log(calculateDifference({ skate: 200, painting: 200, shoes: 1 }, 2000));
+
+// #11
+
+function getFileName(path) {
+  const start = path.includes("/")
+    ? path.lastIndexOf("/")
+    : path.lastIndexOf("\\");
+
+  const end = path.lastIndexOf(".");
+
+  console.log(start, end);
+  return path.slice(start + 1, end);
+}
+console.log(getFileName(`www\\myfile.txt`));
+console.log(getFileName(`www/myfile.txt`));
