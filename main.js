@@ -97,7 +97,7 @@ function calculateDifference(property, limit) {
 // console.log(calculateDifference({ skate: 200, painting: 200, shoes: 1 }, 400));
 // console.log(calculateDifference({ skate: 200, painting: 200, shoes: 1 }, 2000));
 
-// #11
+// #10
 
 function getFileName(path) {
   const start = path.includes("/")
@@ -109,5 +109,157 @@ function getFileName(path) {
   console.log(start, end);
   return path.slice(start + 1, end);
 }
-console.log(getFileName(`www\\myfile.txt`));
-console.log(getFileName(`www/myfile.txt`));
+// console.log(getFileName(`www\\myfile.txt`));
+// console.log(getFileName(`www/myfile.txt`));
+
+// #11
+
+function canGetFirstFromSecond(str1, str2) {
+  console.log(str1, str2);
+  if (!str1 || !str2 || str1.length !== str2.length) return false;
+  let subStr, index, converted;
+  for (let i = 0; i < str2.length - 1; i++) {
+    if (!str1.includes(str2[i])) return false;
+    subStr = str2.slice(i);
+    index = str1.indexOf(subStr);
+    if (index < 0) continue;
+    converted = str1.slice(index) + str1.slice(0, index);
+    console.log(i, converted, str1);
+    if (str1 === converted) return true;
+  }
+  return false;
+}
+// console.log(canGetFirstFromSecond("kate", "teka"));
+// console.log(canGetFirstFromSecond("foods", "dlfoo"));
+// console.log(canGetFirstFromSecond("foods", "dloo"));
+
+// #12
+// function sortArray(...elements) {
+//   const b = [];
+//   const c = [];
+//   let min, max, difference;
+//   let sorted = [...elements].sort((a, b) => a - b);
+
+//   const def = (a, b) => (a < b ? b - a : a - b);
+
+//   console.log(sorted);
+
+//   while (sorted.length != 0) {
+//     for (let i = 1; i < sorted.length - 1; i++) {
+//       if (sorted[i + 1] - sorted[i] < difference) {
+//         min = sorted[i];
+//         max = sorted[i + 1];
+//         difference = max - min;
+//       }
+//     }
+//     b.push(sorted.splice(sorted[i], 1));
+//     max = sorted.splice(sorted[i + 1], 1);
+//     c.push(max);
+//   }
+
+//   for (let i = 1; i < sorted.length - 1; i++) {
+//     if (sorted[i + 1] - sorted[i] < difference) {
+//       min = sorted.splice(sorted[i]);
+//       b.push(min);
+//       max = sorted.splice(sorted[i + 1], 1);
+//       c.push(max);
+//       difference = max - min;
+//     }
+//   }
+// }
+// console.log(sortArray(5, 7, 8, 6, 5, 2, 3, 6));
+
+// #13
+
+function convertStr(str) {
+  const regexpLink = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/gi;
+  const regexpEmail = /\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6}/gi;
+  const regexpThreeDigit = /\d{3,}/gi;
+
+  const wordArr = (str[0].toUpperCase() + str.slice(1)).split(" ");
+
+  let arr = wordArr.map((item) => {
+    if (regexpLink.test(item)) return "[посилання заборонено]";
+    if (regexpThreeDigit.test(item)) return "";
+    if (regexpEmail.test(item)) return "[контакти заборонені]";
+    return item;
+  });
+  let result = arr.join(" ");
+  if (result.length > str.length)
+    setInterval(() => alert("чи потрібна нам допомога?"), 5000);
+
+  return result;
+}
+
+// console.log(convertStr(`усі 5556 посилання https://wesbos.com/ всі email gft@gmao.con видаляються`));
+
+// #14
+
+function bracketsBalance( str ){
+  const brackets = {
+    '(': 'open',
+    ')': 'close'
+  };
+  const stack = [];
+
+for(let i=0; i < str.length; i++){
+    if (!(str[i] in brackets)) continue;
+    if(stack.length === 0 || stack[stack.length-1] === str[i]){
+      stack.push(str[i]);
+      if(brackets[stack[0]]==='close') break;
+    }else{
+      stack.pop();
+    }
+  }
+  return stack.length===0;
+}
+
+
+// console.log(`(())`,  bracketsBalance(`(())`));
+// console.log(`()())`,  bracketsBalance(`()())`));
+// console.log(`(()`, bracketsBalance(`(()`));e
+// console.log(`((()`,  bracketsBalance(`((()`));
+// console.log(`)(()`,  bracketsBalance(`)(()`));
+
+
+// #16
+
+const generateDigitCode = () =>Math.floor(Math.random()*(57-48+1)+48);//0-9
+const generateUpperCharCode = () => Math.floor(Math.random()*(90-65+1)+65);//A-Z
+const generateLowerCharCode = () => Math.floor(Math.random()*(122-97+1)+97);//a-z
+const generateSymbolCode = () => Math.floor(Math.random()*(38-35+1)+35);   //#$%&
+const getUnderscoreCode= () => 95 //_
+
+function createPassword(){
+  const passLength=Math.floor(Math.random()*(20-6)+6);
+  console.log('passLength', passLength)
+ 
+  const setChar=[
+    generateDigitCode, 
+    generateUpperCharCode,
+    generateLowerCharCode, 
+    generateSymbolCode, 
+    getUnderscoreCode
+  ];
+  let randomFunc;
+  let password=[];
+  // let control={'0':0,'1':0, '2':0,'3':0,'4':0};
+  let stack=[];
+  let funcRange=4;
+  for(let i=0; i < passLength; i++){
+    do{
+      randomFunc= Math.floor(Math.random()*(funcRange+1));
+      if(randomFunc=== 4) funcRange--;
+      // control[randomFunc]++;
+
+    }while(stack[stack.length-1]===randomFunc)
+
+    stack.push(randomFunc);
+
+    password.push(setChar[randomFunc]());
+    }
+   
+    console.log(String.fromCharCode(...password))
+  };
+
+console.log(createPassword())
