@@ -235,31 +235,70 @@ function createPassword(){
   console.log('passLength', passLength)
  
   const setChar=[
-    generateDigitCode, 
     generateUpperCharCode,
     generateLowerCharCode, 
     generateSymbolCode, 
+    generateDigitCode, 
     getUnderscoreCode
   ];
   let randomFunc;
   let password=[];
-  // let control={'0':0,'1':0, '2':0,'3':0,'4':0};
   let stack=[];
   let funcRange=4;
+  let countDigit=0;
+  let countUpperCh=0;
+  let countType=(type)=> stack.filter(fun=>fun===type).length
+
   for(let i=0; i < passLength; i++){
     do{
       randomFunc= Math.floor(Math.random()*(funcRange+1));
       if(randomFunc=== 4) funcRange--;
-      // control[randomFunc]++;
+    
+    }while(stack[stack.length-1]===randomFunc || countDigit===5 && randomFunc===3 )
 
-    }while(stack[stack.length-1]===randomFunc)
-
+  
     stack.push(randomFunc);
+    countDigit=countType(3);
+  
 
     password.push(setChar[randomFunc]());
     }
-   
+    countUpperCh=countType(0);
+    // if(countUpperCh<2){
+    
+
+      
+    // }
+    console.log(stack);
     console.log(String.fromCharCode(...password))
   };
 
-console.log(createPassword())
+// console.log(createPassword())
+
+// #17
+
+function  sortElements(arr){
+  let elements=[...arr];
+  let min;
+  let n=elements.length;
+  let left=[], rigth =[];
+  let i=0;
+
+while( n > 0){
+  min= Math.min(...elements);
+  let index = elements.indexOf(min);
+  let element= elements.splice(index,1);
+  if(i%2!==0 ){
+    rigth.unshift(element[0]);
+  }else{
+    left.push(element[0]);
+  }
+  n--;
+  i++;
+}
+
+  return [...left, ...rigth]
+}
+
+console.log(sortElements([6, 2, 5, 4, 1]));
+console.log(sortElements([1,2,3,4,5,6]));
