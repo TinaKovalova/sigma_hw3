@@ -163,7 +163,7 @@ function sortArray(...elements) {
      return [b, c];
 
 }
-console.log(sortArray(5, 7, 8, 6, 5, 2, 3, 6));
+// console.log(sortArray(5, 7, 8, 6, 5, 2, 3, 6));
 
 // #13
 
