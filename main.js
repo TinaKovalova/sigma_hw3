@@ -134,40 +134,36 @@ function canGetFirstFromSecond(str1, str2) {
 // console.log(canGetFirstFromSecond("foods", "dloo"));
 
 // #12
-// function sortArray(...elements) {
-//   const b = [];
-//   const c = [];
-//   let min, max, difference;
-//   let sorted = [...elements].sort((a, b) => a - b);
+function sortArray(...elements) {
+  const b = [];
+  const c = [];
+  let first,firstIndex, second, difference;
+  const sorted = [...elements].sort((a, b) => a - b);
+  const getDifference = (a, b) => (a < b ? b - a : a - b);
+  const setTmpValues= (elem1, elem2, index) => {
+    first = elem1;
+    firstIndex = index;
+    second = elem2;
+    difference=getDifference(first,second);
+  }
+  do{
+      for(let i = 0; i < sorted.length; i++){
+        if(i===0){
+          setTmpValues(sorted[i],sorted[i+1], i);
+          if(difference=== 0) break;
+        }else if(difference > getDifference(sorted[i],sorted[i+1])){
+          setTmpValues(sorted[i],sorted[i+1], i);
+          if(difference=== 0) break;
+        }
+      }
+      b.push(Math.min(first,second))
+      c.push(Math.max(first,second))
+      sorted.splice(firstIndex, 2);
+     }while(sorted.length !== 0)
+     return [b, c];
 
-//   const def = (a, b) => (a < b ? b - a : a - b);
-
-//   console.log(sorted);
-
-//   while (sorted.length != 0) {
-//     for (let i = 1; i < sorted.length - 1; i++) {
-//       if (sorted[i + 1] - sorted[i] < difference) {
-//         min = sorted[i];
-//         max = sorted[i + 1];
-//         difference = max - min;
-//       }
-//     }
-//     b.push(sorted.splice(sorted[i], 1));
-//     max = sorted.splice(sorted[i + 1], 1);
-//     c.push(max);
-//   }
-
-//   for (let i = 1; i < sorted.length - 1; i++) {
-//     if (sorted[i + 1] - sorted[i] < difference) {
-//       min = sorted.splice(sorted[i]);
-//       b.push(min);
-//       max = sorted.splice(sorted[i + 1], 1);
-//       c.push(max);
-//       difference = max - min;
-//     }
-//   }
-// }
-// console.log(sortArray(5, 7, 8, 6, 5, 2, 3, 6));
+}
+console.log(sortArray(5, 7, 8, 6, 5, 2, 3, 6));
 
 // #13
 
@@ -217,7 +213,7 @@ for(let i=0; i < str.length; i++){
 
 // console.log(`(())`,  bracketsBalance(`(())`));
 // console.log(`()())`,  bracketsBalance(`()())`));
-// console.log(`(()`, bracketsBalance(`(()`));e
+// console.log(`(()`, bracketsBalance(`(()`));
 // console.log(`((()`,  bracketsBalance(`((()`));
 // console.log(`)(()`,  bracketsBalance(`)(()`));
 
@@ -300,5 +296,5 @@ while( n > 0){
   return [...left, ...rigth]
 }
 
-console.log(sortElements([6, 2, 5, 4, 1]));
-console.log(sortElements([1,2,3,4,5,6]));
+// console.log(sortElements([6, 2, 5, 4, 1]));
+// console.log(sortElements([1,2,3,4,5,6]));
