@@ -16,7 +16,46 @@ function doesBrickFit(a, b, c, w, h){
 }
 
 
+// #14
+const bracketsForm = document.querySelector('#taskFourteen');
+bracketsForm.addEventListener('submit', (event)=>{
+    event.preventDefault();
+    const text = bracketsForm.elements.bracketsText.value;
+    const isBalanced =bracketsBalance(text);
+    if(isBalanced) createBracketsBalanceElement(text);
 
+})
+function createBracketsBalanceElement(elementText){
+    const resultBlock= document.createElement('div');
+    resultBlock.style.margin='50px';
+    resultBlock.style.padding='20px';
+    resultBlock.style.userSelect='none';
+    const p = document.createElement('p');
+    p.textContent=elementText
+    document.addEventListener('contextmenu', (e) => e.preventDefault());
+    resultBlock.append(p, "В заданому тексті баланс круглих дужок дотримується.")
+    bracketsForm.after(resultBlock);
+}
+
+function bracketsBalance( str ){
+    const brackets = {
+      '(': 'open',
+      ')': 'close'
+    };
+    const stack = [];
+  
+  for(let i=0; i < str.length; i++){
+      if (!(str[i] in brackets)) continue;
+      if(stack.length === 0 || stack[stack.length-1] === str[i]){
+        stack.push(str[i]);
+        if(brackets[stack[0]]==='close') break;
+      }else{
+        stack.pop();
+      }
+    }
+    return stack.length===0;
+  }
+  
 
 // #15
 

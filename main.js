@@ -189,33 +189,7 @@ function convertStr(str) {
 
 // console.log(convertStr(`усі 5556 посилання https://wesbos.com/ всі email gft@gmao.con видаляються`));
 
-// #14
 
-function bracketsBalance( str ){
-  const brackets = {
-    '(': 'open',
-    ')': 'close'
-  };
-  const stack = [];
-
-for(let i=0; i < str.length; i++){
-    if (!(str[i] in brackets)) continue;
-    if(stack.length === 0 || stack[stack.length-1] === str[i]){
-      stack.push(str[i]);
-      if(brackets[stack[0]]==='close') break;
-    }else{
-      stack.pop();
-    }
-  }
-  return stack.length===0;
-}
-
-
-// console.log(`(())`,  bracketsBalance(`(())`));
-// console.log(`()())`,  bracketsBalance(`()())`));
-// console.log(`(()`, bracketsBalance(`(()`));
-// console.log(`((()`,  bracketsBalance(`((()`));
-// console.log(`)(()`,  bracketsBalance(`)(()`));
 
 
 // #16
