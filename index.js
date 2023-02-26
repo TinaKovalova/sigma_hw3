@@ -1,4 +1,4 @@
-// #9
+// #9------------------
 
 const form = document.querySelector('#taskNine');
 const btn = form.querySelector('button')
@@ -16,7 +16,7 @@ function doesBrickFit(a, b, c, w, h){
 }
 
 
-// #14
+// #14------------------
 const bracketsForm = document.querySelector('#taskFourteen');
 bracketsForm.addEventListener('submit', (event)=>{
     event.preventDefault();
@@ -57,7 +57,7 @@ function bracketsBalance( str ){
   }
   
 
-// #15
+// #15------------------
 
 function createList() {
   let text;
@@ -119,4 +119,4 @@ function checkInactivity() {
   document.documentElement.addEventListener("touchstart", setNewTimer);
 }
 
-// createList();
+createList();

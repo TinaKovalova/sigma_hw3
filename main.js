@@ -1,30 +1,45 @@
 "use strict";
+let _= require('lodash');
 
-// #1
+
+// #1-------------------
 function getDifferenceBetweenNumbers(arr = []) {
   if (arr.length <= 1) return 0;
   return Math.max(...arr) - Math.min(...arr);
 }
 
+function getDifferenceBetweenNumbersL(arr = []){
+  if (arr.length <= 1) return 0;
+  return _.subtract(_.max(arr), _.min(arr))
+
+}
+// console.log(getDifferenceBetweenNumbersL([1, 2, 3, -4]));
+// console.log(getDifferenceBetweenNumbersL([1, 2, 3, 8]));
+// console.log(getDifferenceBetweenNumbersL([16]));
+// console.log(getDifferenceBetweenNumbersL([]));
 // console.log(getDifferenceBetweenNumbers([1, 2, 3, -4]));
 // console.log(getDifferenceBetweenNumbers([1, 2, 3, 8]));
 // console.log(getDifferenceBetweenNumbers([16]));
 // console.log(getDifferenceBetweenNumbers([]));
 
-// #2
+// #2-------------------
 
-const getWordsLongerThanNumber = (string, number) =>
-  string.split(" ").filter((item) => item.length > number);
+const getWordsLongerThanNumber = (string, number) => string.split(" ").filter((item) => item.length > number);
+const getWordsLongerThanNumberL = (string, number) =>_.filter(_.words(string),(word)=>word.length>number);
 
+// console.log(getWordsLongerThanNumberL("функція приймає рядок та число", 5));
 // console.log(getWordsLongerThanNumber("функція приймає рядок та число", 5));
 
-// #3
+// #3-------------------
 
 const isEndsWithSubstr = (str, endStr) => str.endsWith(endStr);
+const isEndsWithSubstrL = (str, endStr) => _.endsWith(str, endStr);
+// console.log(isEndsWithSubstrL("abc", "bc"));
+// console.log(isEndsWithSubstrL("abc", "dc"));
 // console.log(isEndsWithSubstr("abc", "bc"));
 // console.log(isEndsWithSubstr("abc", "dc"));
 
-// #4
+// #4-------------------
 
 function getAverages(arr) {
   const averages = [];
@@ -33,10 +48,21 @@ function getAverages(arr) {
   }
   return averages;
 }
+function getAveragesL(arr) {
+  const averages = [];
+  for (let i = 0; i < arr.length; i++) {
+    averages.push(_.mean([arr[i], arr[i + 1]]));
+    if (i + 1 === arr.length - 1) break;
+  }
+ 
+  return averages;
+}
+// console.log(getAveragesL([2, -2, 2, -2, 2]));
+// console.log(getAveragesL([1, 3, 5, 1, -10]));
 // console.log(getAverages([2, -2, 2, -2, 2]));
 // console.log(getAverages([1, 3, 5, 1, -10]));
 
-// #5
+// #5-------------------
 
 function countVowels(str) {
   const vowels = ["a", "e", "i", "o", "u"];
@@ -57,7 +83,7 @@ function removeABC(str) {
 // console.log(removeABC("This might be a bit hard"));
 // console.log(removeABC("hello world!"));
 
-// #6
+// #6-------------------
 
 function difference(arr1, arr2) {
   return Object.keys(
@@ -66,10 +92,18 @@ function difference(arr1, arr2) {
       .reduce((res, item) => ({ ...res, [+item]: 0 }), {})
   );
 }
+
+function differenceL(arr1, arr2) {
+  return   _.map(_.orderBy(_.union(arr1, arr2)),(element)=> String(element));
+}
+
+// console.log(differenceL([1, 2, 3], [100, 2, 1, 10]));
+// console.log(differenceL([251, 22, 13, 10], [102, 22, 1, 10]));
+
 // console.log(difference([1, 2, 3], [100, 2, 1, 10]));
 // console.log(difference([251, 22, 13, 10], [102, 22, 1, 10]));
 
-// #7
+// #7-------------------
 
 function getConvertedObject(obj) {
   return Object.entries(obj).reduce(
@@ -82,7 +116,7 @@ function getConvertedObject(obj) {
 // );
 // console.log(getConvertedObject({ name: "ivan", age: "250", job: "driver" }));
 
-// #8
+// #8-------------------
 function calculateDifference(property, limit) {
   if (!Object.keys(property)) return 0;
   const propertySum = Object.values(property).reduce(
@@ -97,7 +131,7 @@ function calculateDifference(property, limit) {
 // console.log(calculateDifference({ skate: 200, painting: 200, shoes: 1 }, 400));
 // console.log(calculateDifference({ skate: 200, painting: 200, shoes: 1 }, 2000));
 
-// #10
+// #10-------------------
 
 function getFileName(path) {
   const start = path.includes("/")
@@ -112,7 +146,7 @@ function getFileName(path) {
 // console.log(getFileName(`www\\myfile.txt`));
 // console.log(getFileName(`www/myfile.txt`));
 
-// #11
+// #11-------------------
 
 function canGetFirstFromSecond(str1, str2) {
   console.log(str1, str2);
@@ -133,7 +167,7 @@ function canGetFirstFromSecond(str1, str2) {
 // console.log(canGetFirstFromSecond("foods", "dlfoo"));
 // console.log(canGetFirstFromSecond("foods", "dloo"));
 
-// #12
+// #12-------------------
 function sortArray(...elements) {
   const b = [];
   const c = [];
@@ -165,7 +199,7 @@ function sortArray(...elements) {
 }
 // console.log(sortArray(5, 7, 8, 6, 5, 2, 3, 6));
 
-// #13
+// #13-------------------
 
 function convertStr(str) {
   const regexpLink = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/gi;
@@ -192,7 +226,7 @@ function convertStr(str) {
 
 
 
-// #16
+// #16-------------------
 
 const generateDigitCode = () =>Math.floor(Math.random()*(57-48+1)+48);//0-9
 const generateUpperCharCode = () => Math.floor(Math.random()*(90-65+1)+65);//A-Z
@@ -234,18 +268,14 @@ function createPassword(){
     password.push(setChar[randomFunc]());
     }
     countUpperCh=countType(0);
-    // if(countUpperCh<2){
-    
-
-      
-    // }
+   
     console.log(stack);
-    console.log(String.fromCharCode(...password))
+    return String.fromCharCode(...password);
   };
 
 // console.log(createPassword())
 
-// #17
+// #17------------------
 
 function  sortElements(arr){
   let elements=[...arr];
