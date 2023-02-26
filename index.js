@@ -1,4 +1,23 @@
 // #9
+
+const form = document.querySelector('#taskNine');
+const btn = form.querySelector('button')
+ 
+form.addEventListener('submit', (event)=>{
+    event.preventDefault();
+    let{height:{value :a}, width:{value :b}, depth:{value :c},holeHeight:{value :h}, holeWidth:{value :w} } = form.elements;
+    console.log(`doesBrickFit(${a}, ${b}, ${c}, ${w}, ${h})`,doesBrickFit(a, b, c, w, h));
+    event.currentTarget.reset();
+    })
+
+function doesBrickFit(a, b, c, w, h){
+    const isFit =(x, y, dw=w, dh=h)=> x<=dw && y<=dh || x<=dh && y<=dw? true : false;
+    return isFit(a, b) || isFit(a, c)|| isFit(c, b) || isFit(b, c);
+}
+
+
+
+
 // #15
 
 function createList() {
@@ -61,4 +80,4 @@ function checkInactivity() {
   document.documentElement.addEventListener("touchstart", setNewTimer);
 }
 
-createList();
+// createList();
