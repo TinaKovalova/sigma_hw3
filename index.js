@@ -34,49 +34,51 @@ function convertStr(str) {
   return result;
 }
 
+
 // #14------------------
 const bracketsForm = document.querySelector('#taskFourteen');
+const resultBlock= document.querySelector('#taskFourteenResult');
 bracketsForm.addEventListener('submit', (event)=>{
     event.preventDefault();
     const text = bracketsForm.elements.bracketsText.value;
     const isBalanced =bracketsBalance(text);
-    if(isBalanced) createBracketsBalanceElement(text);
-
+    if(isBalanced) {
+      createBracketsBalanceElement(text);
+    }else{
+      resultBlock.innerHTML='';
+    }
 })
+
 function createBracketsBalanceElement(elementText){
-    const resultBlock= document.createElement('div');
     resultBlock.style.margin='50px';
     resultBlock.style.padding='20px';
     resultBlock.style.userSelect='none';
-    const p = document.createElement('p');
-    p.textContent=elementText
-    document.addEventListener('contextmenu', (e) => e.preventDefault());
-    resultBlock.append(p, "В заданому тексті баланс круглих дужок дотримується.")
-    bracketsForm.after(resultBlock);
+    resultBlock.innerHTML=`<p>${elementText}</p><p>В заданому тексті баланс круглих дужок дотримується.</p>`;
 }
 
 function bracketsBalance( str ){
-    const brackets = {
+  const brackets = {
       '(': 'open',
       ')': 'close'
     };
-    const stack = [];
+  const stack = [];
   
   for(let i=0; i < str.length; i++){
       if (!(str[i] in brackets)) continue;
       if(stack.length === 0 || stack[stack.length-1] === str[i]){
         stack.push(str[i]);
-        if(brackets[stack[0]]==='close') break;
+        if(brackets[stack[0]] ==='close') break;
       }else{
         stack.pop();
       }
     }
-    return stack.length===0;
+    return stack.length === 0;
   }
   
 
 // #15------------------
 
+const modal = document.getElementById("modal");
 function createList() {
   let text;
   let charCode;
@@ -91,6 +93,8 @@ function createList() {
   const countA = text.toLowerCase().split("").filter((item) => item.codePointAt(0) === charCode).length;
   let words = text.split(" ");
   const list = document.createElement("ul");
+  list.style.margin='50px';
+  list.style.padding='20px';
   let listItem, itemText;
   words.forEach((word, index, arr) => {
     listItem = document.createElement("li");
@@ -104,14 +108,14 @@ function createList() {
     listItem.textContent = itemText;
     list.append(listItem);
   });
-  document.body.append(list);
+  document.body.prepend(list);
 
   if (document.querySelector("ul")) {
-    new Promise((resolve) => {
+    new Promise((resolve, reject) => {
       setTimeout(() => {
         alert(`кількість усіх літер "а" ${countA}`);
         resolve();
-      }, 500);
+      }, 3000);
     }).then(() => checkInactivity());
   }
 }
@@ -121,14 +125,17 @@ function checkInactivity() {
   const setNewTimer = () => {
     clearTimeout(timerId);
     clearTimeout(timerVisible);
-    const modal = document.getElementById("modal");
     modal.style.visibility = "hidden";
-    timerId = setTimeout(() => {
-      modal.style.visibility = "visible";
+    const promise = new Promise((resolve, reject)=>{
+      timerId=setTimeout(() => {
+        modal.style.visibility = "visible";
+        resolve()
+      }, 300000);
+    }).then(new Promise((resolve, reject)=>{
       timerVisible = setTimeout(() => {
         window.close();
-      }, 10000);
-    }, 3000);
+      }, 60000);
+    }))
   };
 
   document.documentElement.addEventListener("mousemove", setNewTimer);
