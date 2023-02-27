@@ -131,7 +131,7 @@ function checkInactivity() {
         modal.style.visibility = "visible";
         resolve()
       }, 300000);
-    }).then(new Promise((resolve, reject)=>{
+    }).then(()=>new Promise((resolve, reject)=>{
       timerVisible = setTimeout(() => {
         window.close();
       }, 60000);
