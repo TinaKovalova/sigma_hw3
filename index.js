@@ -15,6 +15,24 @@ function doesBrickFit(a, b, c, w, h){
     return isFit(a, b) || isFit(a, c)|| isFit(c, b) || isFit(b, c);
 }
 
+// #13-------------------
+
+function convertStr(str) {
+  const regexpLink = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/gi;
+  const regexpEmail = /\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6}/gi;
+  const regexpThreeDigit = /\d{3,}/gi;
+  const wordArr = (str[0].toUpperCase() + str.slice(1)).split(" ");
+
+  const arr = wordArr.map((item) => {
+    if (regexpLink.test(item)) return "[посилання заборонено]";
+    if (regexpThreeDigit.test(item)) return "";
+    if (regexpEmail.test(item)) return "[контакти заборонені]";
+    return item;
+  });
+  const result = arr.join(" ");
+  if (result.length > str.length) setInterval(() => alert("чи потрібна нам допомога?"), 5000);
+  return result;
+}
 
 // #14------------------
 const bracketsForm = document.querySelector('#taskFourteen');

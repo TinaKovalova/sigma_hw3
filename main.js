@@ -1,7 +1,6 @@
 "use strict";
 let _= require('lodash');
 
-
 // #1-------------------
 function getDifferenceBetweenNumbers(arr = []) {
   if (arr.length <= 1) return 0;
@@ -10,34 +9,18 @@ function getDifferenceBetweenNumbers(arr = []) {
 
 function getDifferenceBetweenNumbersL(arr = []){
   if (arr.length <= 1) return 0;
-  return _.subtract(_.max(arr), _.min(arr))
-
+  return _.subtract(_.max(arr), _.min(arr));
 }
-// console.log(getDifferenceBetweenNumbersL([1, 2, 3, -4]));
-// console.log(getDifferenceBetweenNumbersL([1, 2, 3, 8]));
-// console.log(getDifferenceBetweenNumbersL([16]));
-// console.log(getDifferenceBetweenNumbersL([]));
-// console.log(getDifferenceBetweenNumbers([1, 2, 3, -4]));
-// console.log(getDifferenceBetweenNumbers([1, 2, 3, 8]));
-// console.log(getDifferenceBetweenNumbers([16]));
-// console.log(getDifferenceBetweenNumbers([]));
 
 // #2-------------------
 
 const getWordsLongerThanNumber = (string, number) => string.split(" ").filter((item) => item.length > number);
 const getWordsLongerThanNumberL = (string, number) =>_.filter(_.words(string),(word)=>word.length>number);
 
-// console.log(getWordsLongerThanNumberL("функція приймає рядок та число", 5));
-// console.log(getWordsLongerThanNumber("функція приймає рядок та число", 5));
-
 // #3-------------------
 
 const isEndsWithSubstr = (str, endStr) => str.endsWith(endStr);
 const isEndsWithSubstrL = (str, endStr) => _.endsWith(str, endStr);
-// console.log(isEndsWithSubstrL("abc", "bc"));
-// console.log(isEndsWithSubstrL("abc", "dc"));
-// console.log(isEndsWithSubstr("abc", "bc"));
-// console.log(isEndsWithSubstr("abc", "dc"));
 
 // #4-------------------
 
@@ -57,10 +40,6 @@ function getAveragesL(arr) {
  
   return averages;
 }
-// console.log(getAveragesL([2, -2, 2, -2, 2]));
-// console.log(getAveragesL([1, 3, 5, 1, -10]));
-// console.log(getAverages([2, -2, 2, -2, 2]));
-// console.log(getAverages([1, 3, 5, 1, -10]));
 
 // #5-------------------
 
@@ -68,20 +47,15 @@ function countVowels(str) {
   const vowels = ["a", "e", "i", "o", "u"];
   return str.split("").filter((item) => vowels.includes(item)).length;
 }
-// console.log(countVowels("Celebration"));
-// console.log(countVowels("Palm"));
+
+// #5.2-------------------
 
 function removeABC(str) {
   const abc = ["a", "b", "c"];
   let strChars = str.split("");
   const abcDelete = abc.filter((item) => strChars.includes(item));
-
-  return abcDelete.length == 0
-    ? null
-    : strChars.filter((item) => !abcDelete.includes(item)).join("");
+  return abcDelete.length == 0 ? null : strChars.filter((item) => !abcDelete.includes(item)).join("");
 }
-// console.log(removeABC("This might be a bit hard"));
-// console.log(removeABC("hello world!"));
 
 // #6-------------------
 
@@ -97,12 +71,6 @@ function differenceL(arr1, arr2) {
   return   _.map(_.orderBy(_.union(arr1, arr2)),(element)=> String(element));
 }
 
-// console.log(differenceL([1, 2, 3], [100, 2, 1, 10]));
-// console.log(differenceL([251, 22, 13, 10], [102, 22, 1, 10]));
-
-// console.log(difference([1, 2, 3], [100, 2, 1, 10]));
-// console.log(difference([251, 22, 13, 10], [102, 22, 1, 10]));
-
 // #7-------------------
 
 function getConvertedObject(obj) {
@@ -111,45 +79,31 @@ function getConvertedObject(obj) {
     {}
   );
 }
-// console.log(
-//   getConvertedObject({ red: "#FF0000", green: "#00FF00", white: "#FFFFFF" })
-// );
-// console.log(getConvertedObject({ name: "ivan", age: "250", job: "driver" }));
+
 
 // #8-------------------
 function calculateDifference(property, limit) {
   if (!Object.keys(property)) return 0;
-  const propertySum = Object.values(property).reduce(
-    (sum, item) => (sum += item),
-    0
-  );
+  const propertySum = Object.values(property)
+    .reduce((sum, item) => (sum += item),0);
   return propertySum > limit ? propertySum - limit : 0;
 }
-
-// console.log(calculateDifference({ "baseball bat": 20 }, 5));
-// console.log(calculateDifference({ skate: 10, painting: 20 }, 19));
-// console.log(calculateDifference({ skate: 200, painting: 200, shoes: 1 }, 400));
-// console.log(calculateDifference({ skate: 200, painting: 200, shoes: 1 }, 2000));
 
 // #10-------------------
 
 function getFileName(path) {
-  const start = path.includes("/")
-    ? path.lastIndexOf("/")
-    : path.lastIndexOf("\\");
-
+  const start = path.includes("/")? path.lastIndexOf("/") : path.lastIndexOf("\\");
+  if(start < 0){
+    console.log('Невіний формат шляху');
+    return;
+  } 
   const end = path.lastIndexOf(".");
-
-  console.log(start, end);
   return path.slice(start + 1, end);
 }
-// console.log(getFileName(`www\\myfile.txt`));
-// console.log(getFileName(`www/myfile.txt`));
 
 // #11-------------------
 
 function canGetFirstFromSecond(str1, str2) {
-  console.log(str1, str2);
   if (!str1 || !str2 || str1.length !== str2.length) return false;
   let subStr, index, converted;
   for (let i = 0; i < str2.length - 1; i++) {
@@ -158,16 +112,13 @@ function canGetFirstFromSecond(str1, str2) {
     index = str1.indexOf(subStr);
     if (index < 0) continue;
     converted = str1.slice(index) + str1.slice(0, index);
-    console.log(i, converted, str1);
     if (str1 === converted) return true;
   }
   return false;
 }
-// console.log(canGetFirstFromSecond("kate", "teka"));
-// console.log(canGetFirstFromSecond("foods", "dlfoo"));
-// console.log(canGetFirstFromSecond("foods", "dloo"));
 
 // #12-------------------
+
 function sortArray(...elements) {
   const b = [];
   const c = [];
@@ -182,49 +133,21 @@ function sortArray(...elements) {
   }
   do{
       for(let i = 0; i < sorted.length; i++){
-        if(i===0){
-          setTmpValues(sorted[i],sorted[i+1], i);
-          if(difference=== 0) break;
-        }else if(difference > getDifference(sorted[i],sorted[i+1])){
-          setTmpValues(sorted[i],sorted[i+1], i);
-          if(difference=== 0) break;
+        if(i === 0){
+          setTmpValues(sorted[i], sorted[i+1], i);
+          if(difference === 0) break;
+        }else if(difference > getDifference(sorted[i], sorted[i+1])){
+          setTmpValues(sorted[i], sorted[i+1], i);
+          if(difference === 0) break;
         }
       }
-      b.push(Math.min(first,second))
-      c.push(Math.max(first,second))
+      b.push(Math.min(first, second));
+      c.push(Math.max(first, second));
       sorted.splice(firstIndex, 2);
      }while(sorted.length !== 0)
      return [b, c];
 
 }
-// console.log(sortArray(5, 7, 8, 6, 5, 2, 3, 6));
-
-// #13-------------------
-
-function convertStr(str) {
-  const regexpLink = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/gi;
-  const regexpEmail = /\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6}/gi;
-  const regexpThreeDigit = /\d{3,}/gi;
-
-  const wordArr = (str[0].toUpperCase() + str.slice(1)).split(" ");
-
-  let arr = wordArr.map((item) => {
-    if (regexpLink.test(item)) return "[посилання заборонено]";
-    if (regexpThreeDigit.test(item)) return "";
-    if (regexpEmail.test(item)) return "[контакти заборонені]";
-    return item;
-  });
-  let result = arr.join(" ");
-  if (result.length > str.length)
-    setInterval(() => alert("чи потрібна нам допомога?"), 5000);
-
-  return result;
-}
-
-// console.log(convertStr(`усі 5556 посилання https://wesbos.com/ всі email gft@gmao.con видаляються`));
-
-
-
 
 // #16-------------------
 
@@ -235,9 +158,13 @@ const generateSymbolCode = () => Math.floor(Math.random()*(38-35+1)+35);   //#$%
 const getUnderscoreCode= () => 95 //_
 
 function createPassword(){
+  let password=[];
+  const stack=[];
+  let randomFunc;
+  let funcRange=4;
+  let countDigit=0;
+  let countUpperCh=0;
   const passLength=Math.floor(Math.random()*(20-6)+6);
-  console.log('passLength', passLength)
- 
   const setChar=[
     generateUpperCharCode,
     generateLowerCharCode, 
@@ -245,35 +172,35 @@ function createPassword(){
     generateDigitCode, 
     getUnderscoreCode
   ];
-  let randomFunc;
-  let password=[];
-  let stack=[];
-  let funcRange=4;
-  let countDigit=0;
-  let countUpperCh=0;
-  let countType=(type)=> stack.filter(fun=>fun===type).length
+  const countType=(type)=> stack.filter(fun=>fun===type).length;
+  const changeLowerCharToUpper = (dataArr,countChar, action)=>{
+    let count = countChar;
+    const arr=[...dataArr];
+    for(let i = 0; i < arr.length; i++){
+      if(arr[i]>=97 && arr[i] <=122){
+        arr[i]= action();
+        if(--count === 0) break;
+      }     
+    }
+    return arr;
+  }
 
   for(let i=0; i < passLength; i++){
     do{
       randomFunc= Math.floor(Math.random()*(funcRange+1));
       if(randomFunc=== 4) funcRange--;
-    
-    }while(stack[stack.length-1]===randomFunc || countDigit===5 && randomFunc===3 )
 
-  
+    }while(stack[stack.length-1] === randomFunc || countDigit === 5 && randomFunc === 3)
     stack.push(randomFunc);
-    countDigit=countType(3);
-  
-
+    countDigit = countType(3);
     password.push(setChar[randomFunc]());
     }
-    countUpperCh=countType(0);
-   
-    console.log(stack);
+    countUpperCh = countType(0);
+    if(countUpperCh < 2 && countUpperCh!==0){
+      password = changeLowerCharToUpper(password, 2-countUpperCh , setChar[0]);
+    }
     return String.fromCharCode(...password);
   };
-
-// console.log(createPassword())
 
 // #17------------------
 
@@ -281,13 +208,13 @@ function  sortElements(arr){
   let elements=[...arr];
   let min;
   let n=elements.length;
-  let left=[], rigth =[];
+  const left=[], rigth =[];
   let i=0;
 
 while( n > 0){
   min= Math.min(...elements);
-  let index = elements.indexOf(min);
-  let element= elements.splice(index,1);
+  const index = elements.indexOf(min);
+  const element= elements.splice(index,1);
   if(i%2!==0 ){
     rigth.unshift(element[0]);
   }else{
@@ -296,9 +223,5 @@ while( n > 0){
   n--;
   i++;
 }
-
-  return [...left, ...rigth]
+  return [...left, ...rigth];
 }
-
-// console.log(sortElements([6, 2, 5, 4, 1]));
-// console.log(sortElements([1,2,3,4,5,6]));
